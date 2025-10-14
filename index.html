@@ -2,43 +2,52 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>John Doe Photography</title>
-    <meta name="description" content="Découvrez le portfolio de John Doe, photographe professionnel spécialisé en nature, événements et portraits. Des images uniques pour capturer vos plus beaux moments.">
+    <title>Joint D'eau Photography</title>
+    <meta name="description" content="Découvrez le portfolio de Joint D'eau, photographe professionnel spécialisé en nature, événements et portraits. Des images uniques pour capturer vos plus beaux moments.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>John Doe - Portfolio</h1>
+        <h1>Joint d'eau - Portfolio</h1>
     </header>
 
     <main>
-        <section class="slider">
-            <!-- Slider à compléter par les stagiaires -->
-            <p>Zone slider (à enrichir avec JavaScript)</p>
+        <section class="slider" aria-label="Diaporama des photos">
+            <div class="slider-viewport">
+                <div class="slider-track">
+                    <div class="slide" data-index="0" aria-hidden="false">
+                        <img src="Images/palmiers.jpg" alt="Palmiers au pied d’un immeuble" loading="lazy">
+                        <div class="slide-caption">Des palmiers pour un voyage haut en couleurs.</div>
+                    </div>
+                    <div class="slide" data-index="1" aria-hidden="true">
+                        <img src="Images/drapeau-coucher-soleil.jpg" alt="Drapeau en silhouette au coucher du soleil" loading="lazy">
+                        <div class="slide-caption">Un coucher de soleil sur une nation flamboyante.</div>
+                    </div>
+                    <div class="slide" data-index="2" aria-hidden="true">
+                        <img src="Images/rocher-vagues.jpg" alt="Roche noire frappée par les vagues" loading="lazy">
+                        <div class="slide-caption">La mer comme seul horizon.</div>
+                    </div>
+                    <div class="slide" data-index="3" aria-hidden="true">
+                        <img src="Images/vue-aerienne-rivage.jpg" alt="Vue aérienne d’un rivage rocheux" loading="lazy">
+                        <div class="slide-caption">La mer comme grande source d'inspiration.</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-control prev" aria-label="Image précédente">‹</button>
+            <button class="slider-control next" aria-label="Image suivante">›</button>
+
+            <div class="slider-indicators" role="tablist" aria-label="Indicateurs du diaporama">
+                <button class="indicator" data-index="0" role="tab" aria-selected="true" aria-controls="slide-0" aria-label="Aller à l'image 1"></button>
+                <button class="indicator" data-index="1" role="tab" aria-selected="false" aria-controls="slide-1" aria-label="Aller à l'image 2"></button>
+                <button class="indicator" data-index="2" role="tab" aria-selected="false" aria-controls="slide-2" aria-label="Aller à l'image 3"></button>
+                <button class="indicator" data-index="3" role="tab" aria-selected="false" aria-controls="slide-3" aria-label="Aller à l'image 4"></button>
+            </div>
         </section>
 
         <section class="about">
             <p>John Doe est un photographe passionné qui capture des images de la nature, des événements et des personnes.</p>
-        </section>
-
-        <section class="gallery">
-            <div class="gallery-item">
-                <img src="palmiers.jpg" alt="Palmiers au pied d’un immeuble">
-                <p>Des palmiers pour un voyage haut en couleurs.</p>
-            </div>
-            <div class="gallery-item">
-                <img src="drapeau-coucher-soleil.jpg" alt="Drapeau en silhouette au coucher du soleil">
-                <p>Un coucher de soleil sur une nation flamboyante.</p>
-            </div>
-            <div class="gallery-item">
-                <img src="rocher-vagues.jpg" alt="Roche noire frappée par les vagues">
-                <p>La mer comme seul horizon.</p>
-            </div>
-            <div class="gallery-item">
-                <img src="vue-aerienne-rivage.jpg" alt="Vue aérienne d’un rivage rocheux">
-                <p>La mer comme grande source d'inspiration.</p>
-            </div>
         </section>
 
         <section class="services">
@@ -62,5 +71,6 @@
     <footer>
         <p>© 2025 John Doe Photography</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>

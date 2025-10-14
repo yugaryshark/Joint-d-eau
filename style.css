@@ -17,27 +17,95 @@ main {
     padding: 20px;
 }
 
-section.gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.gallery-item {
-    width: 45%;
-    background-color: #222;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 300px; /* ou auto si tu utilises object-fit */
-    object-fit: cover; /* important pour garder un bon rendu */
-    border-radius: 4px;
-}
-
 section.services ul {
     padding-left: 20px;
+}
+
+.slider {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    overflow: visible;
+}
+
+.slider-viewport {
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 1000ms ease;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.slide img {
+    display: block;
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+.slide-caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.slider-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.slider-control.prev { left: 12px; }
+.slider-control.next { right: 12px; }
+
+.slider-control:focus { outline: 2px solid #fff; }
+
+.slider-indicators {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #444;
+    border: none;
+    cursor: pointer;
+}
+
+.indicator[aria-selected="true"] {
+    background: #fff;
+}
+
+@media (max-width: 700px) {
+    .gallery-item { width: 100%; }
+    .slide img { height: 260px; }
 }
