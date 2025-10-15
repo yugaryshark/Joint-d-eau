@@ -275,3 +275,15 @@ document.addEventListener('click', (e) => {
 });
 });
 
+const img = document.getElementById("cat-image");
+const btn = document.getElementById("new-cat");
+
+async function loadCat() {
+  const res = await fetch("https://api.thecatapi.com/v1/images/search");
+  const data = await res.json();
+  img.src = data[0].url;
+}
+
+btn.addEventListener("click", loadCat);
+
+loadCat();

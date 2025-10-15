@@ -11,16 +11,6 @@ body {
     color: #1A1A1A;
 }
 
-.fade-in-up {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: fadeUp 520ms cubic-bezier(.2,.9,.2,1) forwards;
-}
-
-@keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-}
-
 .categories {
     margin: 18px 0 28px 0;
     overflow: hidden;
@@ -95,7 +85,6 @@ summary {
     list-style: none;
     outline: none;
     display: list-item;
-    /* add a subtle arrow using ::marker fallback */
 }
 
 summary::-webkit-details-marker { display: none; }
@@ -264,21 +253,17 @@ section.services ul {
     .slide img { height: 260px; }
 }
 
-/* Lightbox styles */
-/* Lightbox styles */
 #lightbox {
     position: fixed;
     inset: 0;
     display: none;
     align-items: center;
     justify-content: center;
-    /* placer les éléments en colonne : image + caption */
     flex-direction: column;
     gap: 12px;
     padding: 28px;
     z-index: 10000;
     background: rgba(0,0,0,0.35);
-    /* backdrop-filter floute le contenu derrière la couche (si supporté) */
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     transition: opacity 220ms ease, visibility 220ms ease;
@@ -302,7 +287,6 @@ section.services ul {
     opacity: 0;
 }
 
-/* When the image has finished loading we add .loaded to animate in */
 .lightbox-img.loaded {
     transform: scale(1);
     opacity: 1;
@@ -324,7 +308,6 @@ section.services ul {
     z-index: 10001;
 }
 
-/* Lightbox caption + controls */
 .lightbox-caption {
     margin-top: 14px;
     color: #f5f5f5;
@@ -362,7 +345,6 @@ section.services ul {
     .lightbox-caption { font-size: 14px; padding: 6px 10px; }
 }
 
-/* Prevent background scrolling when lightbox open */
 body.lightbox-open {
     overflow: hidden;
 }
@@ -370,4 +352,19 @@ body.lightbox-open {
 @media (max-width: 700px) {
     .lightbox-img { max-width: 96vw; max-height: 80vh; }
     #lightbox .close { right: 16px; top: 16px; }
+}
+
+.cat-image {
+    justify-content: center;
+}
+
+.new-cat {
+    background: #0A3D62;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 12px;
 }
