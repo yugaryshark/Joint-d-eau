@@ -1,5 +1,5 @@
 h1{
-    color : #B5838D;
+    color : #F1FAEE;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5)
 }
 
@@ -7,18 +7,39 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FAF3E0;
-    color: #2C2C2C;
+    background-color: #FDFBF7;
+    color: #1A1A1A;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
+    width: auto;
+    height: auto;
+    background: #0A3D62;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 9999;
 }
 
 header{
-    background-color: #C97B2E;
+    background-color: #0A3D62;
     padding: 20px;
     text-align: center;
 }
 
 footer {
-    background-color: #6C584C;
+    background-color: #0A3D62;
+    color : #F1FAEE;
     padding: 20px;
     text-align: center;
 }
@@ -47,6 +68,7 @@ section.services ul {
 .slider-viewport {
     overflow: hidden;
     border-radius: 6px;
+    transition: height 320ms ease;
 }
 
 .slider-track {
@@ -63,9 +85,12 @@ section.services ul {
 
 .slide img {
     display: block;
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
 }
 
 .slide-caption {
@@ -116,11 +141,15 @@ section.services ul {
 .indicator {
     width: 12px;
     height: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    padding: 8px;
     border-radius: 50%;
     background: #444;
     border: none;
     cursor: pointer;
 }
+.indicator:focus-visible { outline: 3px solid #C97B2E; }
 
 .indicator[aria-selected="true"] {
     background: #fff;

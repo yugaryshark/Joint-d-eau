@@ -4,45 +4,48 @@
     <meta charset="UTF-8">
     <title>Joint D'eau Photography</title>
     <meta name="description" content="Découvrez le portfolio de Joint D'eau, photographe professionnel spécialisé en nature, événements et portraits. Des images uniques pour capturer vos plus beaux moments.">
+    <meta name="theme-color" content="#0A3D62">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
     <header>
-        <h1>Joint d'eau - Porte la faux de Lio</h1>
+        <h1>Joint d'eau - Porte-à-faux de Lio</h1>
     </header>
 
-    <main>
+    <main id="main">
         <section class="slider" aria-label="Diaporama des photos">
             <div class="slider-viewport">
                 <div class="slider-track">
-                    <div class="slide" data-index="0" aria-hidden="false">
+                    <div id="slide-0" class="slide" data-index="0" aria-hidden="false">
                         <img src="Images/palmiers.jpg" alt="Palmiers au pied d’un immeuble" loading="lazy" id="palmiers">
                         <div class="slide-caption">Des palmiers pour un voyage haut en couleurs.</div>
                     </div>
-                    <div class="slide" data-index="1" aria-hidden="true">
+                    <div id="slide-1" class="slide" data-index="1" aria-hidden="true">
                         <img src="Images/drapeau-coucher-soleil.jpg" alt="Drapeau en silhouette au coucher du soleil" loading="lazy" id="Drapeau">
                         <div class="slide-caption">Un coucher de soleil sur une nation flamboyante.</div>
                     </div>
-                    <div class="slide" data-index="2" aria-hidden="true">
+                    <div id="slide-2" class="slide" data-index="2" aria-hidden="true">
                         <img src="Images/rocher-vagues.jpg" alt="Roche noire frappée par les vagues" loading="lazy" id="rocher">
                         <div class="slide-caption">La mer comme seul horizon.</div>
                     </div>
-                    <div class="slide" data-index="3" aria-hidden="true">
+                    <div id="slide-3" class="slide" data-index="3" aria-hidden="true">
                         <img src="Images/vue-aerienne-rivage.jpg" alt="Vue aérienne d’un rivage rocheux" loading="lazy" id="rivage">
                         <div class="slide-caption">La mer comme grande source d'inspiration.</div>
                     </div>
                 </div>
             </div>
 
-            <button class="slider-control prev" aria-label="Image précédente">‹</button>
-            <button class="slider-control next" aria-label="Image suivante">›</button>
+            <button type="button" class="slider-control prev" aria-label="Image précédente">‹</button>
+            <button type="button" class="slider-control next" aria-label="Image suivante">›</button>
 
             <div class="slider-indicators" role="tablist" aria-label="Indicateurs du diaporama">
-                <button class="indicator" data-index="0" role="tab" aria-selected="true" aria-controls="slide-0" aria-label="Aller à l'image 1"></button>
-                <button class="indicator" data-index="1" role="tab" aria-selected="false" aria-controls="slide-1" aria-label="Aller à l'image 2"></button>
-                <button class="indicator" data-index="2" role="tab" aria-selected="false" aria-controls="slide-2" aria-label="Aller à l'image 3"></button>
-                <button class="indicator" data-index="3" role="tab" aria-selected="false" aria-controls="slide-3" aria-label="Aller à l'image 4"></button>
+                <button type="button" class="indicator" data-index="0" role="tab" aria-selected="true" aria-controls="slide-0" aria-label="Aller à l'image 1"></button>
+                <button type="button" class="indicator" data-index="1" role="tab" aria-selected="false" aria-controls="slide-1" aria-label="Aller à l'image 2"></button>
+                <button type="button" class="indicator" data-index="2" role="tab" aria-selected="false" aria-controls="slide-2" aria-label="Aller à l'image 3"></button>
+                <button type="button" class="indicator" data-index="3" role="tab" aria-selected="false" aria-controls="slide-3" aria-label="Aller à l'image 4"></button>
             </div>
         </section>
 

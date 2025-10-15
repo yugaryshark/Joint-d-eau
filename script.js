@@ -1,9 +1,12 @@
+document.addEventListener('DOMContentLoaded', function() {
 (() => {
   const track = document.querySelector('.slider-track');
   const slides = Array.from(document.querySelectorAll('.slide'));
   const prevBtn = document.querySelector('.slider-control.prev');
   const nextBtn = document.querySelector('.slider-control.next');
+  if (!track || slides.length === 0) return;
   const indicators = Array.from(document.querySelectorAll('.indicator'));
+  const viewport = document.querySelector('.slider-viewport');
   let current = 0;
   let autoplayInterval = null;
   const AUTOPLAY_DELAY = 4000;
@@ -24,20 +27,23 @@
     });
 
     current = index;
+    adjustViewportHeight(index);
   }
 
   function next() { goTo(current + 1); }
   function prev() { goTo(current - 1); }
 
-  // Controls
-  nextBtn.addEventListener('click', () => { pauseAutoplay(); next(); });
-  prevBtn.addEventListener('click', () => { pauseAutoplay(); prev(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { pauseAutoplay(); next(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { pauseAutoplay(); prev(); });
 
   indicators.forEach(btn => {
+    if (!btn) return;
     btn.addEventListener('click', (e) => {
       const i = parseInt(e.currentTarget.dataset.index, 10);
-      pauseAutoplay();
-      goTo(i);
+      if (Number.isFinite(i)) {
+        pauseAutoplay();
+        goTo(i);
+      }
     });
   });
 
@@ -67,22 +73,71 @@
   goTo(0);
   startAutoplay();
 
-  window.addEventListener('resize', () => { goTo(current); });
+  slides.forEach(s => {
+    const img = s.querySelector('img');
+    if (!img) return;
+    const nw = img.naturalWidth || img.width;
+    const nh = img.naturalHeight || img.height;
+    if (nw && nh) {
+      img.setAttribute('width', nw);
+      img.setAttribute('height', nh);
+      img.style.aspectRatio = `${nw} / ${nh}`;
+    }
+  });
+
+  function adjustViewportHeight(index) {
+    const img = slides[index].querySelector('img');
+    if (!img) return;
+    const vw = viewport.clientWidth;
+    const naturalW = img.naturalWidth || img.width;
+    const naturalH = img.naturalHeight || img.height;
+    if (!naturalW || !naturalH) {
+      setTimeout(() => { viewport.style.height = img.clientHeight + 'px'; }, 50);
+      return;
+    }
+    const renderedH = Math.round((naturalH / naturalW) * vw);
+    let maxLandscapeH = 0;
+    slides.forEach((sl) => {
+      const im = sl.querySelector('img');
+      if (!im) return;
+      const nw = im.naturalWidth || im.width;
+      const nh = im.naturalHeight || im.height;
+      if (nw && nh && nw >= nh) {
+        const h = Math.round((nh / nw) * viewport.clientWidth);
+        if (h > maxLandscapeH) maxLandscapeH = h;
+      }
+    });
+    const cap = maxLandscapeH || renderedH;
+    const finalH = Math.min(renderedH, cap);
+    viewport.style.height = finalH + 'px';
+  }
+
+  function debounce(fn, wait = 120) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), wait);
+    };
+  }
+
+  const onResize = debounce(() => { adjustViewportHeight(current); });
+  window.addEventListener('resize', onResize);
+
+  adjustViewportHeight(0);
 })();
-// Lightbox: full-screen preview with background blur
 const images = Array.from(document.querySelectorAll('.slide img'));
 const lightbox = document.createElement('div');
-lightbox.id = 'lightbox'; // correspond au CSS (#lightbox)
+lightbox.id = 'lightbox';
 
 const lightboxImg = document.createElement('img');
 lightboxImg.className = 'lightbox-img';
 
 const closeBtn = document.createElement('button');
-closeBtn.className = 'close'; // correspond au sélecteur #lightbox .close
+closeBtn.className = 'close'; 
 closeBtn.setAttribute('aria-label', 'Fermer');
 closeBtn.innerHTML = '×';
+closeBtn.type = 'button';
 
-// caption and controls in lightbox
 const captionEl = document.createElement('div');
 captionEl.className = 'lightbox-caption';
 
@@ -90,11 +145,13 @@ const lbPrev = document.createElement('button');
 lbPrev.className = 'lightbox-prev';
 lbPrev.setAttribute('aria-label', 'Image précédente');
 lbPrev.innerHTML = '‹';
+lbPrev.type = 'button';
 
 const lbNext = document.createElement('button');
 lbNext.className = 'lightbox-next';
 lbNext.setAttribute('aria-label', 'Image suivante');
 lbNext.innerHTML = '›';
+lbNext.type = 'button';
 
 lightbox.appendChild(lightboxImg);
 lightbox.appendChild(captionEl);
@@ -109,21 +166,17 @@ let previouslyFocused = null;
 function openLightbox(index) {
   activeIndex = (index + images.length) % images.length;
   const src = images[activeIndex].src;
-  // afficher le fond immédiatement, puis afficher l'image quand elle est chargée
   lightbox.classList.add('active');
   document.body.classList.add('lightbox-open');
   previouslyFocused = document.activeElement;
   closeBtn.focus();
 
-  // retirer toute classe loaded précédente, setter la source et attendre le chargement
   lightboxImg.classList.remove('loaded');
   lightboxImg.src = src;
 }
 
 function closeLightbox() {
-  // enlever l'état loaded pour déclencher la transition de sortie
   lightboxImg.classList.remove('loaded');
-  // Fermer le conteneur (le CSS gère la transition d'opacité)
   lightbox.classList.remove('active');
   document.body.classList.remove('lightbox-open');
   if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
@@ -133,7 +186,6 @@ function closeLightbox() {
 
 function showNext() {
   activeIndex = (activeIndex + 1) % images.length;
-  // reset loaded state then set src (onload gèrera caption)
   lightboxImg.classList.remove('loaded');
   lightboxImg.src = images[activeIndex].src;
 }
@@ -158,7 +210,6 @@ lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox) closeLightbox();
 });
 
-// Keyboard handling when lightbox open
 document.addEventListener('keydown', (e) => {
   if (!lightbox.classList.contains('active')) return;
   if (e.key === 'Escape') closeLightbox();
@@ -166,13 +217,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') showPrev();
 });
 
-// Central handler pour chaque chargement d'image (ouvre la transition et met à jour la caption)
 lightboxImg.addEventListener('load', () => {
-  // animer l'image
   requestAnimationFrame(() => lightboxImg.classList.add('loaded'));
-  // mettre à jour la légende
   const slide = images[activeIndex].closest('.slide');
   const caption = slide ? (slide.querySelector('.slide-caption')?.textContent || '') : '';
   captionEl.textContent = caption;
+});
 });
 
