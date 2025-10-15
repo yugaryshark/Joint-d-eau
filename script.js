@@ -223,5 +223,55 @@ lightboxImg.addEventListener('load', () => {
   const caption = slide ? (slide.querySelector('.slide-caption')?.textContent || '') : '';
   captionEl.textContent = caption;
 });
+
+// Category panel interactions
+const categoryButtons = Array.from(document.querySelectorAll('.categories-item'));
+const categoryPanel = document.getElementById('category-panel');
+const categoryDescriptions = {
+  nature: 'Sélection de paysages et faune — idéal pour impressions et expositions.',
+  portraits: 'Portraits en studio et extérieur, disponibilité pour coaching pose.',
+  evenements: 'Reportages pour événements privés et professionnels, livraison rapide.',
+  retouche: 'Services de retouche et restauration pour rendre vos images parfaites.',
+  paysage: 'Paysages grand format — sessions au lever et coucher du soleil.',
+  nb: 'Collection noir et blanc, exploration des contrastes et textures.',
+  voyage: 'Images de voyage capturant les atmosphères locales et la lumière naturelle.'
+};
+
+let activeCategory = null;
+
+categoryButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const cat = btn.dataset.category;
+    // button animation: briefly add .active
+    categoryButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (activeCategory === cat) {
+      // close
+      categoryPanel.classList.remove('open');
+      activeCategory = null;
+      btn.classList.remove('active');
+      return;
+    }
+
+    // populate and open panel with slight delay so the button animation is visible
+    setTimeout(() => {
+      categoryPanel.textContent = categoryDescriptions[cat] || '';
+      categoryPanel.classList.add('open');
+      activeCategory = cat;
+    }, 140);
+  });
+});
+
+// close panel when clicking outside
+document.addEventListener('click', (e) => {
+  if (!categoryPanel || !categoryButtons) return;
+  const isInside = e.target.closest('.categories') || e.target.closest('#category-panel');
+  if (!isInside) {
+    categoryPanel.classList.remove('open');
+    categoryButtons.forEach(b => b.classList.remove('active'));
+    activeCategory = null;
+  }
+});
 });
 
